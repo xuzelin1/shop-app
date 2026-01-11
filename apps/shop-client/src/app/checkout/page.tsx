@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
@@ -15,6 +15,7 @@ export default function CheckoutPage() {
   
   const [step, setStep] = useState<'shipping' | 'payment' | 'confirm'>('shipping')
   const [isProcessing, setIsProcessing] = useState(false)
+  const [isMounted, setIsMounted] = useState(false)
   
   // Shipping Info
   const [shippingInfo, setShippingInfo] = useState({
@@ -36,9 +37,20 @@ export default function CheckoutPage() {
   const shipping = totalPrice > 500 ? 0 : 50
   const finalTotal = totalPrice + shipping
 
+  // 客户端渲染标记
+  useEffect(() => {
+    setIsMounted(true)
+  }, [])
+
   // 如果购物车为空，重定向
-  if (items.length === 0) {
-    router.push('/cart')
+  useEffect(() => {
+    if (isMounted && items.length === 0) {
+      router.push('/cart')
+    }
+  }, [isMounted, items.length, router])
+
+  // 服务端渲染或购物车为空时不显示内容
+  if (!isMounted || items.length === 0) {
     return null
   }
 

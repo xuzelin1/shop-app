@@ -1,6 +1,34 @@
 // 相机皮套商品数据 - 使用京东CDN图片
 // 京东图片CDN格式: https://img{N}.360buyimg.com/n{size}/{jfs路径}
 
+// 产品类型定义
+export interface Product {
+  id: string
+  name: string
+  slogan: string
+  price: number
+  originalPrice?: number
+  category: string
+  brand: string
+  model: string
+  material?: string
+  caseType?: string
+  weight?: string
+  colors: string[]
+  specs: string[]
+  images: string[]
+  description: string
+  features: {
+    title: string
+    description: string
+    image: string
+  }[]
+  rating?: number
+  reviews?: number
+  inStock?: boolean
+  stock?: number
+}
+
 // 京东图片URL配置
 // 说明：请访问京东产品页面，获取真实的图片链接并替换以下URL
 const JD_IMAGES = {
@@ -123,7 +151,7 @@ const getAccessoryImage = (type: 'strap' | 'wireless' | 'filter', fallback: stri
   return getImage(JD_IMAGES.accessories[type], fallback);
 }
 
-export const products = [
+export const products: Product[] = [
   // ========== 徕卡 M 系列皮套 ==========
   {
     id: '1',
