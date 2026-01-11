@@ -1,0 +1,29 @@
+{
+  "name": "shop-app",
+  "version": "1.0.0",
+  "private": true,
+  "description": "电商平台 - Monorepo 项目",
+  "scripts": {
+    "dev:client": "pnpm --filter shop-client dev",
+    "dev:admin": "pnpm --filter shop-admin dev",
+    "dev:server": "pnpm --filter shop-server dev",
+    "dev:all": "concurrently \"pnpm dev:client\" \"pnpm dev:admin\" \"pnpm dev:server\"",
+    "build:client": "pnpm --filter shop-client build",
+    "build:admin": "pnpm --filter shop-admin build",
+    "build:server": "pnpm --filter shop-server build",
+    "build:all": "pnpm build:client && pnpm build:admin && pnpm build:server",
+    "install:all": "pnpm install"
+  },
+  "keywords": [
+    "ecommerce",
+    "shop",
+    "monorepo"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
+
+
